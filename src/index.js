@@ -3,7 +3,7 @@ import * as mdc from "material-components-web";
 import { MDCRipple } from "@material/ripple";
 import "@material/drawer";
 import "@material/textfield";
-import { Dialog, List, TextField } from "polythene-mithril";
+import { RaisedButton, Dialog, List, TextField } from "polythene-mithril";
 
 import "polythene-css/dist/polythene.css";
 import "polythene-css/dist/polythene-typography.css";
@@ -20,7 +20,7 @@ const MCWButton = {
     MDCRipple.attachTo(dom);
   },
   view: ({ attrs }) => 
-    m("button.mdc-button.mdc-button--compact",
+    m("button.mdc-button.mdc-button--raised",
       { onclick: attrs.onclick },
       [
         attrs.icon && m("i.material-icons.mdc-button__icon", 
@@ -70,36 +70,32 @@ const MCWDrawer = {
     )
 };
 
-const Form = {
-  view: () => 
-    [
-      m(MCWTextField, { label: "MCW Textfield", id: "textfield" }),
-      m(TextField, { label: "Polythene Textfield", floatingLabel: true })
-    ]
-};
-
 const App = {
   oncreate: () => {
     mdc.autoInit();
   },
   view: () => 
     m(".page", [
-      m("div", 
-        m(MCWButton,
+      m("h1", "Combining Polythene and material-components-web (MDC-Web)"),
+      m(".row", [
+        m(".header", "Open MCW Drawer from Polythene Button"),
+        m(RaisedButton,
           {
-            label: "Open MCW Drawer",
-            icon: "menu",
-            onclick: () => {
-              let drawer = new mdc.drawer.MDCTemporaryDrawer(document.querySelector(".menu-drawer"));
-              drawer.open = true;
+            label: "Open Drawer",
+            events: {
+              onclick: () => {
+                let drawer = new mdc.drawer.MDCTemporaryDrawer(document.querySelector(".menu-drawer"));
+                drawer.open = true;
+              }
             }
           }
         )
-      ),
-      m("div", 
+      ]),
+      m(".row", [
+        m(".header", "Open Polythene Dialog from MCW Button"),
         m(MCWButton,
           {
-            label: "Open Polythene Dialog",
+            label: "Open Dialog",
             onclick: () =>
               Dialog.show({
                 /* note the Dialog component is below the other elements in the app */
@@ -109,9 +105,23 @@ const App = {
               })
           }
         )
-      ),
-      m(".form-example", 
-        m(Form)
+      ]),
+      m(".row", [
+        m(".header", "MCW TextField"),
+        m(MCWTextField, { label: "Your name", id: "mcw" }),
+      ]),
+      m(".row", [
+        m(".header", "Polythene TextField"),
+        m(TextField, { label: "Your name", floatingLabel: true, id: "polythene" }),
+      ]),
+      m("div",
+        { class: "footer" },
+        [
+          m("a",
+            { href: "https://github.com/ArthurClemens/polythene-mithril-material-components-web" },
+            "Code on Github"
+          )
+        ]
       ),
       m(MCWDrawer),
       m(Dialog)

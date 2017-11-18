@@ -47,6 +47,6 @@ module.exports = {
     new ExtractTextPlugin("css/app.css"),
   ],
 
-  devtool: "source-map"
+  // devtool: "source-map"
 
 };

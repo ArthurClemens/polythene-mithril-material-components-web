@@ -22,3 +22,7 @@ Build:
 yarn run build
 ~~~
 
+
+## Documentation
+
+[Polythene documentation](https://github.com/ArthurClemens/polythene/blob/master/docs/)
