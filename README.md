@@ -2,6 +2,11 @@
 
 Minimal setup example how to combine [Polythene](https://github.com/ArthurClemens/polythene) components (version Mithril) and MDC-Web components.
 
+## Demo
+
+[Demo](http://arthurclemens.github.io/polythene-mithril-material-components-web)
+
+
 ## Setup
 
 Init:
