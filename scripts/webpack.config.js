@@ -1,52 +1,59 @@
 /* global __dirname */
 const path = require("path");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
 
-  context: path.resolve(__dirname, "../src"),
+  context: path.resolve(__dirname, "../src"), 
 
   entry: {
     index: "../index.js",
   },
 
-  externals: {
-    mithril: "m"
-  },
-
   output: {
-    path: path.resolve(__dirname, "../dist/"),
+    path: path.resolve(__dirname, "../dist"),
     filename: "js/[name].js"
   },
 
   module: {
     rules: [
       {
-        test: /\.js$/, // Check for all js files
+        test: /\.mjs$/, 
+        type: "javascript/auto",
+      },
+      {
+        test: /\.js$/,
         exclude: /node_modules/,
         use: [{
           loader: "babel-loader",
-          options: {  
-            presets: [ 
-              [ "env", { modules: false } ] 
-            ]         
+          options: {
+            presets: ["@babel/preset-env", "@babel/preset-react"]
           }
         }]
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: "css-loader"
-        })
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              modules: true,
+              sourceMap: true,
+              localIdentName: "[local]"
+            }
+          },
+        ]
       }
     ]
   },
 
   plugins: [
-    new ExtractTextPlugin("css/app.css"),
+    new MiniCssExtractPlugin({
+      filename: "css/app.css"
+    }),
   ],
 
-  // devtool: "source-map"
+  devtool: "source-map"
 
 };

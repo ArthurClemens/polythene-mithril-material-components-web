@@ -12,19 +12,19 @@ Minimal setup example how to combine [Polythene](https://github.com/ArthurClemen
 Init:
 
 ~~~
-yarn
+npm install
 ~~~
 
 Start development server (port 3000):
 
 ~~~
-yarn run dev
+npm run dev
 ~~~
 
 Build:
 
 ~~~
-yarn run build
+npm run build
 ~~~
 
 

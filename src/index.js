@@ -1,24 +1,24 @@
 import m from "mithril";
 import * as mdc from "material-components-web";
 import { MDCRipple } from "@material/ripple";
-import "@material/drawer";
-import "@material/textfield";
-import { RaisedButton, Dialog, List, TextField } from "polythene-mithril";
+import { MDCDrawer } from "@material/drawer";
+import { MDCTextField } from "@material/textfield";
+import { Button, Dialog, List, TextField } from "polythene-mithril";
 
 import "polythene-css/dist/polythene.css";
 import "polythene-css/dist/polythene-typography.css";
 import "@material/button/dist/mdc.button.css";
 import "@material/ripple/dist/mdc.ripple.css";
 import "@material/textfield/dist/mdc.textfield.css";
+import "@material/floating-label/dist/mdc.floating-label.css";
 import "@material/drawer/dist/mdc.drawer.css";
-import "@material/list/dist/mdc.list.css";
+// import "@material/list/dist/mdc.list.css";
 
 import "./styles.css";
 
 const MCWButton = {
-  oncreate: ({ dom }) => {
-    MDCRipple.attachTo(dom);
-  },
+  oncreate: ({ dom }) =>
+    MDCRipple.attachTo(dom),
   view: ({ attrs }) => 
     m("button.mdc-button.mdc-button--raised",
       { onclick: attrs.onclick },
@@ -32,40 +32,49 @@ const MCWButton = {
 };
 
 const MCWTextField = {
-  view: ({ attrs }) => 
-    m(".mdc-form-field", 
-      m(".mdc-text-field[data-mdc-auto-init='MDCTextField']",
+  oncreate: ({ dom }) =>
+    new MDCTextField(dom),
+  view: () => 
+    m(".mdc-text-field.mdc-text-field--outlined",
+    [
+      m("input.mdc-text-field__input[id='tf-outlined'][type='text']"),
+      m(".mdc-notched-outline",
         [
-          m(`input.mdc-text-field__input[id='${attrs.id}'][type='text']`),
-          m(`label.mdc-text-field__label[for='${attrs.id}']`, 
-            attrs.label
+          m(".mdc-notched-outline__leading"),
+          m(".mdc-notched-outline__notch", 
+            m("label.mdc-floating-label[for='tf-outlined']", 
+              "Your Name"
+            )
           ),
-          m(".mdc-text-field__bottom-line")
+          m(".mdc-notched-outline__trailing")
         ]
       )
-    )
+    ]
+  )
 };
 
 const MCWDrawer = {
   view: () => 
-    m("aside.mdc-temporary-drawer.menu-drawer", 
-      m("nav.mdc-temporary-drawer__drawer",
-        m(List, {
-          className: "drawer-menu",
-          header: {
-            title: "Polythene List"
-          },
-          all: {
-            hoverable: true
-          },
-          tiles: [
-            { title: "Inbox" },
-            { title: "Important" },
-            { title: "Sent" },
-            { title: "Spam" },
-            { title: "Trash" },
-          ]
-        })
+    m("aside.mdc-drawer.mdc-drawer--dismissible.menu-drawer", 
+      m(".mdc-drawer__content",
+        m("nav.mdc-list",
+          m(List, {
+            className: "drawer-menu",
+            header: {
+              title: "Polythene List"
+            },
+            all: {
+              hoverable: true
+            },
+            tiles: [
+              { title: "Inbox" },
+              { title: "Important" },
+              { title: "Sent" },
+              { title: "Spam" },
+              { title: "Trash" },
+            ]
+          })
+        )
       )
     )
 };
@@ -74,18 +83,23 @@ const App = {
   oncreate: () => {
     mdc.autoInit();
   },
-  view: () => 
+  view: () => [
+    m(MCWDrawer),
     m(".page", [
-      m("h1", "Combining Polythene and material-components-web (MDC-Web)"),
+      m("h1", "Combining Polythene and Material Components for the web"),
       m(".row", [
         m(".header", "Open MCW Drawer from Polythene Button"),
-        m(RaisedButton,
+        m(Button,
           {
+            raised: true,
             label: "Open Drawer",
             events: {
               onclick: () => {
-                let drawer = new mdc.drawer.MDCTemporaryDrawer(document.querySelector(".menu-drawer"));
+                const drawer = MDCDrawer.attachTo(document.querySelector(".menu-drawer"));
                 drawer.open = true;
+                document.body.addEventListener("click", (event) => {
+                  drawer.open = false;
+                });
               }
             }
           }
@@ -123,9 +137,9 @@ const App = {
           )
         ]
       ),
-      m(MCWDrawer),
       m(Dialog)
     ])
+  ]
 };
 
 m.mount(document.querySelector("#root"), App);
