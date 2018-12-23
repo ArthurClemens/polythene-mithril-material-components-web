@@ -12,7 +12,6 @@ import "@material/ripple/dist/mdc.ripple.css";
 import "@material/textfield/dist/mdc.textfield.css";
 import "@material/floating-label/dist/mdc.floating-label.css";
 import "@material/drawer/dist/mdc.drawer.css";
-// import "@material/list/dist/mdc.list.css";
 
 import "./styles.css";
 
@@ -97,7 +96,7 @@ const App = {
               onclick: () => {
                 const drawer = MDCDrawer.attachTo(document.querySelector(".menu-drawer"));
                 drawer.open = true;
-                document.body.addEventListener("click", (event) => {
+                document.body.addEventListener("click", event => {
                   drawer.open = false;
                 });
               }
