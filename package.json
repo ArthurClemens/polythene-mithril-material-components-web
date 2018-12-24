@@ -1,6 +1,6 @@
 {
   "name": "polythene-mithril-material-components-web",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "",
   "private": true,
   "main": "dist/js/test.js",
@@ -20,8 +20,8 @@
     "@material/textfield": "^0.42.1",
     "material-components-web": "^0.42.1",
     "mithril": "1.1.6",
-    "polythene-css": "^1.4.0",
-    "polythene-mithril": "^1.4.0"
+    "polythene-css": "^1.4.1",
+    "polythene-mithril": "^1.4.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -43,6 +43,6 @@
     "terser-webpack-plugin": "1.2.0",
     "webpack": "^4.28.2",
     "webpack-cli": "3.1.2",
-    "webpack-dev-server": "^3.1.13"
+    "webpack-dev-server": "^3.1.14"
   }
 }

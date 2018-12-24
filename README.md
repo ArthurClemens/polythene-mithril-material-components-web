@@ -9,9 +9,9 @@ Minimal setup example how to combine [Polythene](https://github.com/ArthurClemen
 
 ## Introduction
 
-[MDC-Web](https://github.com/material-components/material-components-web) is a toolbox of Material Design components. It is more HTML+CSS oriented than Mithril. Virtual DOM libraries by nature are more JavaScript-component based, using parameters to specify appearance and behavior.
+[MDC-Web](https://github.com/material-components/material-components-web) is a toolbox of Material Design components. It is more HTML+CSS oriented than Mithril or other Virtual DOM libraries.
 
-So most MDC-Web components come in 3 separate parts: HTML, CSS and JavaScript.
+Most MDC-Web components come in 3 separate parts: HTML, CSS and JavaScript.
 
 
 <a id="html"></a>
@@ -44,6 +44,8 @@ Most bundlers have options for importing CSS files. Frequently used with Webpack
 <a id="javascript"></a>
 ### JavaScript
 
+We can use a thin component that outputs the hyperscript (see HTML above).
+
 A MDC-Web component is initialized by attaching it to a DOM element. We can use Mithril's `oncreate` and pass the vnode's `dom`.
 
 In this example the text field is initialised so that the floating label works correctly:
@@ -56,22 +58,13 @@ const MCWTextField = {
   oncreate: ({ dom }) =>
     new MDCTextField(dom),
   view: () => 
-    m(".mdc-text-field.mdc-text-field--outlined",
-    [
-      m("input.mdc-text-field__input[id='tf-outlined'][type='text']"),
-      m(".mdc-notched-outline",
-        [
-          m(".mdc-notched-outline__leading"),
-          m(".mdc-notched-outline__notch", 
-            m("label.mdc-floating-label[for='tf-outlined']", 
-              "Your Name"
-            )
-          ),
-          m(".mdc-notched-outline__trailing")
-        ]
-      )
-    ]
-  )
+    m(".mdc-text-field", [
+      m("input.mdc-text-field__input[id='my-text-field'][type='text']"),
+      m("label.mdc-floating-label[for='my-text-field']", 
+        "Your name"
+      ),
+      m(".mdc-line-ripple")
+    ])
 };
 ~~~
 
@@ -79,11 +72,13 @@ const MCWTextField = {
 <a id="combining-mcw-and-polythene"></a>
 ### Combining MDC-Web and Polythene
 
-MCW components and Mithril hyperscript can easily be mixed.
+MCW components and Polythene components can be mixed.
 
-A MCW Drawer component can contain any content, including a List component from Polythene:
+For example, when using a MCW Drawer component, we can put other content, including a Polythene List component:
 
 ~~~javascript
+import { List } from "polythene-mithril";
+
 const MCWDrawer = {
   view: () => 
     m("aside.mdc-drawer.mdc-drawer--dismissible.menu-drawer", 
@@ -111,9 +106,11 @@ const MCWDrawer = {
 };
 ~~~
 
-And that drawer can be called from a Button component from Polythene:
+And that Drawer can be called from a Polythene Button component:
 
 ~~~javascript
+import { Button } from "polythene-mithril";
+
 m(Button, {
   events: {
     onclick: () => {

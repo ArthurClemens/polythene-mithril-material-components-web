@@ -34,22 +34,13 @@ const MCWTextField = {
   oncreate: ({ dom }) =>
     new MDCTextField(dom),
   view: () => 
-    m(".mdc-text-field.mdc-text-field--outlined",
-    [
-      m("input.mdc-text-field__input[id='tf-outlined'][type='text']"),
-      m(".mdc-notched-outline",
-        [
-          m(".mdc-notched-outline__leading"),
-          m(".mdc-notched-outline__notch", 
-            m("label.mdc-floating-label[for='tf-outlined']", 
-              "Your Name"
-            )
-          ),
-          m(".mdc-notched-outline__trailing")
-        ]
-      )
-    ]
-  )
+    m(".mdc-text-field", [
+      m("input.mdc-text-field__input[id='my-text-field'][type='text']"),
+      m("label.mdc-floating-label[for='my-text-field']", 
+        "Your name"
+      ),
+      m(".mdc-line-ripple")
+    ])
 };
 
 const MCWDrawer = {
