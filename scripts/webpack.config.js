@@ -1,15 +1,14 @@
 /* global process */
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const WebpackModules = require("webpack-modules");
 
 const baseDir = process.cwd();
 
 module.exports = {
 
-  context: path.resolve(baseDir, "./src"),
-
   entry: {
-    index: "../index.js",
+    index: path.resolve(baseDir, "./src/index.js")
   },
 
   output: {
@@ -24,18 +23,19 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.mjs$/,
-        type: "javascript/auto",
-      },
-      {
-        test: /\.js$/,
+        test: /\.m?js$/,
         exclude: /node_modules/,
+        type: "javascript/auto",
         use: [{
-          loader: "babel-loader"
+          loader: "babel-loader",
+          options: {
+            configFile: "./babel.config.js"
+          }
         }]
       },
       {
         test: /\.css$/,
+        sideEffects: true,
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -52,6 +52,7 @@ module.exports = {
   },
 
   plugins: [
+    new WebpackModules(),
     new MiniCssExtractPlugin({
       filename: "css/app.css"
     }),
