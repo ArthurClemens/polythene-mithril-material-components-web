@@ -27,16 +27,18 @@ MDC-Web styles can co-exist with Polythene styles.
 
 Easiest is to load all CSS:
 
-~~~javascript
-import "material-components-web/dist/material-components-web.css"
-~~~
+```css
+/* styles.css */
+@import "material-components-web/dist/material-components-web.css";
+```
 
 but it is more economical to import only the CSS you need:
 
-~~~javascript
-import "@material/button/dist/mdc.button.css"
-import "@material/ripple/dist/mdc.ripple.css"
-~~~
+```css
+/* styles.css */
+@import "@material/button/dist/mdc.button.css";
+@import "@material/ripple/dist/mdc.ripple.css";
+```
 
 Most bundlers have options for importing CSS files. Frequently used with Webpack is [mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin).
 
@@ -50,23 +52,31 @@ A MDC-Web component is initialized by attaching it to a DOM element. We can use 
 
 In this example the text field is initialised so that the floating label works correctly:
 
-~~~javascript
+```javascript
 import { MDCTextField } from "@material/textfield";
-import "@material/textfield/dist/mdc.textfield.css";
 
 const MCWTextField = {
-  oncreate: ({ dom }) =>
-    new MDCTextField(dom),
-  view: () => 
-    m(".mdc-text-field", [
-      m("input.mdc-text-field__input[id='my-text-field'][type='text']"),
-      m("label.mdc-floating-label[for='my-text-field']", 
-        "Your name"
-      ),
-      m(".mdc-line-ripple")
-    ])
+  oncreate: ({ dom }) => new MDCTextField(dom),
+  view: () =>
+    m(
+      "label",
+      {
+        class:
+          "mdc-text-field mdc-text-field--filled mdc-text-field--fullwidth",
+      },
+      [
+        m("span", { class: "mdc-text-field__ripple" }),
+        m("input", {
+          class: "mdc-text-field__input",
+          type: "text",
+          placeholder: "Full-Width Text Field",
+          "aria-label": "Full-Width Text Field",
+        }),
+        m("span", { class: "mdc-line-ripple" }),
+      ]
+    ),
 };
-~~~
+```
 
 
 <a id="combining-mcw-and-polythene"></a>
@@ -76,7 +86,7 @@ MCW components and Polythene components can be mixed.
 
 For example, when using a MCW Drawer component, we can put other content, including a Polythene List component:
 
-~~~javascript
+```javascript
 import { List } from "polythene-mithril";
 
 const MCWDrawer = {
@@ -104,11 +114,11 @@ const MCWDrawer = {
       )
     )
 };
-~~~
+```
 
 And that Drawer can be called from a Polythene Button component:
 
-~~~javascript
+```javascript
 import { Button } from "polythene-mithril";
 
 m(Button, {
@@ -122,7 +132,7 @@ m(Button, {
     }
   }
 }
-~~~
+```
 
 
 
@@ -130,21 +140,21 @@ m(Button, {
 
 Init:
 
-~~~
+```
 npm install
-~~~
+```
 
 Start development server (port 3000):
 
-~~~
+```
 npm run dev
-~~~
+```
 
 Build:
 
-~~~
+```
 npm run build
-~~~
+```
 
 
 ## Documentation

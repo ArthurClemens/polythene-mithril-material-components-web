@@ -5,8 +5,7 @@ import { MDCDrawer } from "@material/drawer";
 import { MDCTextField } from "@material/textfield";
 import { Button, Dialog, List, TextField } from "polythene-mithril";
 
-import "polythene-css/dist/polythene.css";
-import "polythene-css/dist/polythene-typography.css";
+
 
 import "./styles.css";
 
@@ -22,13 +21,23 @@ const MCWButton = {
 const MCWTextField = {
   oncreate: ({ dom }) => new MDCTextField(dom),
   view: () =>
-    m("label", {"class":"mdc-text-field mdc-text-field--filled mdc-text-field--fullwidth"},
-  [
-    m("span", {"class":"mdc-text-field__ripple"}),
-    m("input", {"class":"mdc-text-field__input","type":"text","placeholder":"Full-Width Text Field","aria-label":"Full-Width Text Field"}),
-    m("span", {"class":"mdc-line-ripple"})
-  ]
-)
+    m(
+      "label",
+      {
+        class:
+          "mdc-text-field mdc-text-field--filled mdc-text-field--fullwidth",
+      },
+      [
+        m("span", { class: "mdc-text-field__ripple" }),
+        m("input", {
+          class: "mdc-text-field__input",
+          type: "text",
+          placeholder: "Full-Width Text Field",
+          "aria-label": "Full-Width Text Field",
+        }),
+        m("span", { class: "mdc-line-ripple" }),
+      ]
+    ),
 };
 
 const MCWDrawer = {
