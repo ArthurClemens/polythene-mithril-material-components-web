@@ -7,11 +7,6 @@ import { Button, Dialog, List, TextField } from "polythene-mithril";
 
 import "polythene-css/dist/polythene.css";
 import "polythene-css/dist/polythene-typography.css";
-import "@material/button/dist/mdc.button.css";
-import "@material/ripple/dist/mdc.ripple.css";
-import "@material/textfield/dist/mdc.textfield.css";
-import "@material/floating-label/dist/mdc.floating-label.css";
-import "@material/drawer/dist/mdc.drawer.css";
 
 import "./styles.css";
 
